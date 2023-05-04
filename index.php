@@ -36,6 +36,19 @@
             'distance_to_center' => 50
         ]
     ];
+    
+
+    if (!empty($GET_['search'])) {
+        $category = $_GET['search'];
+        $filteredArray = [];
+        for($i = 0; $i < count($hotels); $i++){
+            if($hotels[$i]['parking'] == $category){
+                $filteredArray[] = $hotels[$i];
+            }
+        }
+    }else{
+        $filteredArray = $hotels;
+    }
 ?>
 
 
@@ -50,6 +63,14 @@
 </head>
 <body class="d-flex align-items-center flex-column">
     <h1 class="text-center py-3">Hotels PHP</h1>
+    <form class="py-4" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET">
+        <select name="search">
+            <option selected>Open this select menu</option>
+            <option value="true">Parking</option>
+            <option value="false">No parking</option>
+        </select>
+        <button type="submit">Send</button>
+    </form>
     <div>
         <table class="table py-3">
             <thead>
@@ -62,14 +83,14 @@
                 </tr>
             </thead>
             <tbody>
-                <?php for($i = 0; $i < count($hotels); $i++){ ?>
-                <tr>
-                    <td><?php echo $hotels[$i]['name']; ?></th>
-                    <td><?php echo $hotels[$i]['description']; ?></td>
-                    <td><?php echo $hotels[$i]['parking']; ?></td>
-                    <td><?php echo $hotels[$i]['vote']; ?></td>
-                    <td><?php echo $hotels[$i]['distance_to_center']; ?></td>
-                </tr>
+                <?php for($i = 0; $i < count($filteredArray); $i++){ ?>
+                    <tr>
+                        <td><?php echo $filteredArray[$i]['name']; ?></th>
+                        <td><?php echo $filteredArray[$i]['description']; ?></td>
+                        <td><?php echo $filteredArray[$i]['parking']; ?></td>
+                        <td><?php echo $filteredArray[$i]['vote']; ?></td>
+                        <td><?php echo $filteredArray[$i]['distance_to_center']; ?></td>
+                    </tr>
                 <?php } ?>
             </tbody>
         </table>    
