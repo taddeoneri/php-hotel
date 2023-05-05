@@ -36,10 +36,13 @@
             'distance_to_center' => 50
         ]
     ];
-    
 
-    if (!empty($GET_['search'])) {
-        $category = $_GET['search'];
+    if (!empty($_GET['search'])) {
+        if($_GET['search'] == 'true'){
+            $category = true;
+        }else{
+            $category = false;
+        }
         $filteredArray = [];
         for($i = 0; $i < count($hotels); $i++){
             if($hotels[$i]['parking'] == $category){
@@ -59,13 +62,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
-    <title>Document</title>
+    <title>PHP Hotels</title>
 </head>
 <body class="d-flex align-items-center flex-column">
     <h1 class="text-center py-3">Hotels PHP</h1>
     <form class="py-4" action="<?php $_SERVER['PHP_SELF'] ?>" method="GET">
         <select name="search">
-            <option selected>Open this select menu</option>
+            <option value="">All</option>
             <option value="true">Parking</option>
             <option value="false">No parking</option>
         </select>
